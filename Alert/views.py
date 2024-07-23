@@ -14,6 +14,9 @@ def clear(s):
     s = s.replace('\n\t\t', '')
     s = s.replace('\t\n', '')
     s = s.replace('\t', '')
+    s = s.replace('\n\t\t', '')
+    s = s.replace('\t\n', '')
+    s = s.replace('\t', '')
     return s
 
 def scrap() : 
