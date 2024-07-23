@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="{% static 'jquery-3.7.0.min.js' %}"></script>
+    <title>Document</title>
+</head>
+<body>
+    Bonne nuit
+
+    <script>
+        var nb = 0;
+        console.log (nb);
+        $(document).ready(function(){
+          var display = $("#display");
+          setInterval(function(){
+              $.ajax({
+                  type: 'GET',
+                  url : "/api/scrap/"+nb,
+                  success: function(response){
+                    nb = parseInt(response.nb);
+                    console.log(response.nb+" / "+response.n);
+                    if(response.msg=="Negative")
+                        console.log("Rien à signaler");
+                    else 
+                        console.log("Changement");
+                  },
+                  error: function(response){
+                      console.log('Erreur')
+                  }
+              });
+          },5000);
+      });
+      </script>
+</body>
+</html>
