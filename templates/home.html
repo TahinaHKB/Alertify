@@ -4,35 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'style.css' %}" rel="stylesheet">
     <script src="{% static 'jquery-3.7.0.min.js' %}"></script>
-    <title>Document</title>
+    <title>Alertify</title>
 </head>
 <body>
-    Bonne nuit
+    <div id="conteneur">
+        <div id="boite">
+            <h1>Bienvenue dans ALERTIFY</h1>
+            <p>Préciser le niveau que vous voulez suivre, on vous enverra un email dès l'instant où un
+                nouveau examen apparait
+            </p>
+            <form method="POST" action="{% url 'home' %}">
+                {% csrf_token %}
+                <input type="checkbox" name="level" value="3"> A1
+                <input type="checkbox" name="level" value="4"> A2
+                <input type="checkbox" name="level" value="5"> B1
+                <input type="checkbox" name="level" value="6"> B2
+                <input type="checkbox" name="level" value="7"> C1
+                <input type="checkbox" name="level" value="8"> C2
+                <input type="submit" value="ok">
+            </form>
+            {% for l in lvl %}
+                {{ l }}
+            {% endfor %}
+            <p>Au total, il y <span id="nb">{{ nb }}</span> offres </p>
+        </div>
+    </div>
 
-    <script>
-        var nb = 0;
-        console.log (nb);
-        $(document).ready(function(){
-          var display = $("#display");
-          setInterval(function(){
-              $.ajax({
-                  type: 'GET',
-                  url : "/api/scrap/"+nb,
-                  success: function(response){
-                    nb = parseInt(response.nb);
-                    console.log(response.nb+" / "+response.n);
-                    if(response.msg=="Negative")
-                        console.log("Rien à signaler");
-                    else 
-                        console.log("Changement");
-                  },
-                  error: function(response){
-                      console.log('Erreur')
-                  }
-              });
-          },5000);
-      });
-      </script>
+    <script src="{% static 'manage.js' %}"></script>
 </body>
 </html>
